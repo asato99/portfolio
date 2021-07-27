@@ -450,25 +450,6 @@
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
         <script type="text/javascript">
-
-            function onLoadCallbackFunction() {
-                console.log('load')
-                let clientid = '1030698155919-3gm089pita4d09o30jufrrtg4aefj0cj.apps.googleusercontent.com';
-                let scopes = ['https://www.googleapis.com/auth/gmail.send'].join(' '); 
-                gapi.auth.authorize({'client_id': clientid, 'scope': scopes, 'immediate': true}, handleAuthResult);
-            }
-
-            function handleAuthResult(authResult) {
-                if (authResult && !authResult.error) {
-                    // 認証後の処理
-                    gapi.client.load('gmail', 'v1', sendMail());
-                    console.log('auth')
-                } else {
-                    // 認証できていない時やエラーの時の処理
-                    console.log('auth error')
-                }
-            }
-
             function sendMail() {
                 let mimeData = ["To: asato99system@gmail.com",
                     "Subject: =?utf-8?B?" + window.btoa(unescape(encodeURIComponent("日本語の件名"))) + "?=",
@@ -490,6 +471,25 @@
                     console.log('send')
                 });
             }
+
+            function handleAuthResult(authResult) {
+                if (authResult && !authResult.error) {
+                    // 認証後の処理
+                    gapi.client.load('gmail', 'v1', sendMail());
+                    console.log('auth')
+                } else {
+                    // 認証できていない時やエラーの時の処理
+                    console.log('auth error')
+                }
+            }
+
+            function onLoadCallbackFunction() {
+                console.log('load')
+                let clientid = '1030698155919-3gm089pita4d09o30jufrrtg4aefj0cj.apps.googleusercontent.com';
+                let scopes = ['https://www.googleapis.com/auth/gmail.send'].join(' '); 
+                gapi.auth.authorize({'client_id': clientid, 'scope': scopes, 'immediate': true}, handleAuthResult);
+            }
+
         </script>
         <script src="https://apis.google.com/js/client.js?onload=onLoadCallbackFunction"></script>
     </body>
