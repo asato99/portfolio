@@ -493,14 +493,6 @@
         </script> -->
 
         <script>
-            async function signIn() {
-            try {
-                await gapi.auth2.getAuthInstance().signIn();
-                console.log('Signed in');
-            } catch (e) {
-                console.error(e);
-            }
-            }
             // Step 1で取得したOAuthクライアントIDをここに書く。
             const CLIENT_ID = '1030698155919-3gm089pita4d09o30jufrrtg4aefj0cj.apps.googleusercontent.com';
 
@@ -513,14 +505,20 @@
                     scope: 'https://www.googleapis.com/auth/gmail.send'
                 });
                 await gapi.client.load('gmail', 'v1');
-                signIn();
                 console.log('Initialized');
             } catch (e) {
                 console.error(e);
             }
             }
 
-         
+            async function signIn() {
+            try {
+                await gapi.auth2.getAuthInstance().signIn();
+                console.log('Signed in');
+            } catch (e) {
+                console.error(e);
+            }
+            }
 
             async function signOut() {
             try {
@@ -566,6 +564,10 @@
             } catch (e) {
                 console.error(e);
             }
+            }
+
+            document.getElementById("submitButton").onclick = function () {
+                signIn();
             }
         </script>
         <script src="https://apis.google.com/js/client.js?onload=onLoad"></script>
