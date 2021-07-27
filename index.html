@@ -537,10 +537,10 @@
                 const body = 'これはテストです。';
 
                 // サインイン済みかチェック。
-                if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
-                console.error('Sign in first');
-                return;
-                }
+                // if (!gapi.auth2.getAuthInstance().isSignedIn.get()) {
+                // console.error('Sign in first');
+                // return;
+                // }
 
                 // メールデータの作成。
                 const mimeData = [
@@ -567,7 +567,6 @@
             }
 
             document.getElementById("submit-button").onclick = function () {
-                signIn();
                 console.log('click')
                 sendEmail();
             }
