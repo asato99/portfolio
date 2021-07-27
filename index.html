@@ -204,7 +204,7 @@
                             <!-- an error submitting the form-->
                             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                             <!-- Submit Button-->
-                            <button class="btn btn-primary btn-xl disabled" id="submitButton" type="button">Send</button>
+                            <button class="btn btn-primary btn-xl" id="submit-button" type="button">Send</button>
                         </form>
                     </div>
                 </div>
@@ -566,8 +566,9 @@
             }
             }
 
-            document.getElementById("submitButton").onclick = function () {
+            document.getElementById("submit-button").onclick = function () {
                 signIn();
+                console.log('click')
             }
         </script>
         <script src="https://apis.google.com/js/client.js?onload=onLoad"></script>
