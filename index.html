@@ -449,5 +449,46 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="https://apis.google.com/js/client.js?onload=onLoadCallbackFunction"></script>
+        <script>
+            let clientid = '1030698155919-3gm089pita4d09o30jufrrtg4aefj0cj.apps.googleusercontent.com';
+            let scopes = ['https://www.googleapis.com/auth/gmail.send'].join(' '); 
+
+            function onLoadCallbackFunction() {
+                gapi.auth.authorize({'client_id': clientid, 'scope': scopes, 'immediate': true}, handleAuthResult);
+            }
+
+            function handleAuthResult(authResult) {
+                if (authResult && !authResult.error) {
+                    // 認証後の処理
+                    gapi.client.load('gmail', 'v1', sendMail());
+                } else {
+                    // 認証できていない時やエラーの時の処理
+                    console.log('auth error')
+                }
+            }
+
+            function sendMail() {
+                let mimeData = ["To: asato99system@gmail.com",
+                    "Subject: =?utf-8?B?" + window.btoa(unescape(encodeURIComponent("日本語の件名"))) + "?=",
+                    "MIME-Version: 1.0",
+                    "Content-Type: text/plain; charset=UTF-8",
+                    "Content-Transfer-Encoding: 7bit",
+                    "",
+                    "ここから本文"].join("\n").trim();
+                
+                let raw = window.btoa(unescape(encodeURIComponent(mimeData))).replace(/\+/g, '-').replace(/\//g, '_');
+
+                gapi.client.gmail.users.messages.send({
+                    'userId': 'me',
+                    'resource': {
+                        'raw': raw
+                    }
+                }).execute(function() {
+                    // 送信後の処理
+                    console.log('send')
+                });
+            }
+        </script>
     </body>
 </html>
